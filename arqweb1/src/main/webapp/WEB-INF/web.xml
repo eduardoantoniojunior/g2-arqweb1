@@ -4,4 +4,24 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>NoticiaServlet</servlet-name>
+  	<display-name>NoticiaServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.NoticiaServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UsuarioServlet</servlet-name>
+  	<display-name>UsuarioServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.UsuarioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>NoticiaServlet</servlet-name>
+  	<url-pattern>/NoticiaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UsuarioServlet</servlet-name>
+  	<url-pattern>/UsuarioServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
