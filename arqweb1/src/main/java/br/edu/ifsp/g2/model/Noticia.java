@@ -4,17 +4,23 @@ import java.time.LocalDate;
 
 public class Noticia {
 	
+	private static int lastId = 0;
 	private String titulo;
 	private String texto;
 	private LocalDate dataPublicacao;
 	private String nomeAutor;
+	private int id;
 	
-	//O nome do autor não é necessário por questões de tema da notícia e segurança do jornalista
+	public Noticia() {
+		this.id = Noticia.lastId++;
+	}
 	
-	public Noticia(String titulo, String texto, LocalDate dataPublicacao) {
+	public Noticia(String titulo, String texto, LocalDate dataPublicacao, String nomeAutor) {
+		this();
 		setTitulo(titulo);
 		setTexto(texto);
 		setDataPublicacao(dataPublicacao);
+		setNomeAutor(nomeAutor);
 	}
 	
 	public String getTitulo() {
@@ -47,5 +53,9 @@ public class Noticia {
 	
 	public void setNomeAutor(String nomeAutor) {
 		this.nomeAutor = nomeAutor;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

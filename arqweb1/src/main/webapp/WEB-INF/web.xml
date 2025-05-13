@@ -16,6 +16,30 @@
   	<description></description>
   	<servlet-class>br.edu.ifsp.g2.controller.UsuarioServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CreateNoticiaServlet</servlet-name>
+  	<display-name>CreateNoticiaServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.CreateNoticiaServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ReadNoticiaServlet</servlet-name>
+  	<display-name>ReadNoticiaServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.ReadNoticiaServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EditNoticiaServlet</servlet-name>
+  	<display-name>EditNoticiaServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.EditNoticiaServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteNoticiaServlet</servlet-name>
+  	<display-name>DeleteNoticiaServlet</display-name>
+  	<description></description>
+  	<servlet-class>br.edu.ifsp.g2.controller.DeleteNoticiaServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>NoticiaServlet</servlet-name>
   	<url-pattern>/NoticiaServlet</url-pattern>
@@ -23,5 +47,21 @@
   <servlet-mapping>
   	<servlet-name>UsuarioServlet</servlet-name>
   	<url-pattern>/UsuarioServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CreateNoticiaServlet</servlet-name>
+  	<url-pattern>/CreateNoticiaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ReadNoticiaServlet</servlet-name>
+  	<url-pattern>/ReadNoticiaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EditNoticiaServlet</servlet-name>
+  	<url-pattern>/EditNoticiaServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteNoticiaServlet</servlet-name>
+  	<url-pattern>/DeleteNoticiaServlet</url-pattern>
   </servlet-mapping>
 </web-app>
