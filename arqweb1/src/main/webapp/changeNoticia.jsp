@@ -1,41 +1,47 @@
-<%@include file='header.jsp' %>
+<%@include file="header.jsp"%>
 
 <div class="container py-5">
-    <h2 class="mb-4">Editar Livro - ${livro.id}</h2>
-    <form action="editar-livro" method="post" class="needs-validation" novalidate>
-        <input type="hidden" name="id" value="${livro.id}"/>
+    <h2 class="text-center mb-4">Editar Not√≠cia</h2>
+    <form action="editar-noticia" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <input type="hidden" name="id" value="${noticia.id}" />
 
         <div class="mb-3">
-            <label for="titulo" class="form-label">TÌtulo</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" value="${livro.titulo}" required>
+            <label for="titulo" class="form-label">T√≠tulo</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" value="${noticia.titulo}" required>
         </div>
 
         <div class="mb-3">
             <label for="autor" class="form-label">Autor</label>
-            <input type="text" class="form-control" id="autor" name="autor" value="${livro.autor}" required>
+            <input type="text" class="form-control" id="autor" name="autor" value="${noticia.autor}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">GÍnero</label>
-            <c:set var="generoAtual" value="${livro.genero}" />
-            <c:forEach var="g" items="${generos}">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="genero" value="${g}"
-                        <c:if test="${g eq generoAtual}">checked</c:if>>
-                    <label class="form-check-label">${g}</label>
-                </div>
-            </c:forEach>
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-select" name="categoria" required>
+                <option ${noticia.categoria == 'Pol√≠tica' ? 'selected' : ''}>Pol√≠tica</option>
+                <option ${noticia.categoria == 'Esportes' ? 'selected' : ''}>Esportes</option>
+                <option ${noticia.categoria == 'Tecnologia' ? 'selected' : ''}>Tecnologia</option>
+            </select>
         </div>
 
         <div class="mb-3">
-            <label for="anoPublicacao" class="form-label">Ano de PublicaÁ„o</label>
-            <input type="number" class="form-control" id="anoPublicacao" name="anoPublicacao"
-                   value="${livro.anoPublicacao}" required>
+            <label for="resumo" class="form-label">Resumo</label>
+            <textarea class="form-control" name="resumo" rows="3">${noticia.resumo}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="conteudo" class="form-label">Conte√∫do</label>
+            <textarea class="form-control" name="conteudo" rows="8">${noticia.conteudo}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagem" class="form-label">Alterar Imagem de Destaque</label>
+            <input type="file" class="form-control" name="imagem">
         </div>
 
         <button type="submit" class="btn btn-primary">Atualizar</button>
-        <a href="listar-livros" class="btn btn-secondary">Cancelar</a>
+        <a href="minhasNoticias.jsp" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 
-<%@include file='footer.jsp' %>
+<%@include file="footer.jsp"%>
