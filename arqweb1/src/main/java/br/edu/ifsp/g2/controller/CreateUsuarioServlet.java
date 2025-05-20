@@ -1,42 +1,56 @@
 package br.edu.ifsp.g2.controller;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class CreateNoticiaServlet
- */
+import br.edu.ifsp.g2.dao.UsuarioDAO;
+import br.edu.ifsp.g2.model.Usuario;
+
 @WebServlet("/criar-usuario")
 public class CreateUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateUsuarioServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private UsuarioDAO dao = UsuarioDAO.getInstance();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public CreateUsuarioServlet() {
+		super();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+
+		try {
+			session.setAttribute("erro", null);
+			String usuario = request.getParameter("usuario");
+			String senha = request.getParameter("senha");
+			String nome = request.getParameter("nome");
+			String idadeStr = request.getParameter("idade");
+
+			if (usuario == null || usuario.isEmpty() || senha == null || senha.isEmpty() || nome == null
+					|| nome.isEmpty() || idadeStr == null || idadeStr.isEmpty()) {
+				throw new RuntimeException("Todos os campos são obrigatórios.");
+			}
+			int idade = Integer.parseInt(idadeStr);
+			Usuario novo = new Usuario(usuario, senha, nome, idade);
+			dao.addUsuario(novo);
+
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		} catch (NumberFormatException ex) {
+			session.setAttribute("erro",
+					"Erro, a idade deve ser um inteiro que represente sua idade em anos e seja maior que 0");
+			request.getRequestDispatcher("addUsuario.jsp").forward(request, response);
+		} catch (Exception ex) {
+			session.setAttribute("erro", "Erro inesperado: " + ex.getMessage());
+			request.getRequestDispatcher("addUsuario.jsp").forward(request, response);
+		}
 	}
 
 }

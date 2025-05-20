@@ -1,6 +1,8 @@
 package br.edu.ifsp.g2.controller;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,57 +12,46 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.ifsp.g2.dao.UsuarioDAO;
 
-/**
- * Servlet implementation class ReadNoticiaServlet
- */
+
 @WebServlet("/listar-usuario")
 public class ReadUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UsuarioDAO dao = UsuarioDAO.getInstance();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ReadUsuarioServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-
 		HttpSession session = request.getSession();
+		String errorMessage = "";
 		int id = -1;
+		
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		if (id != -1) {
-			try {
-				session.setAttribute("usuarioAtual", dao.getUsuario(id));
-			} catch (Exception e) {
-				e.printStackTrace();
-				request.setAttribute("erro", "Usuário não encontrado");
-				request.getRequestDispatcher("index.jsp").forward(request, response); //TODO: Definir para qual rota vamos madar
+			
+			if (id >= 0) {
+				session.setAttribute("usuarioSelecionado", dao.getUsuario(id));
+				request.getRequestDispatcher("changeUsuario.jsp").forward(request, response);
 			}
-		} else {
 			session.setAttribute("usuarios", dao.getUsuarios());
+			request.getRequestDispatcher("listUsuarios.jsp").forward(request, response);
+		} catch (NumberFormatException parseEx) {
+			errorMessage = "ID de usuário inválido, ele precisar ser um número inteiro. A busca falhou!";
+		} catch (NoSuchElementException notFoundEX) {
+			errorMessage = "Usuário com ID: " + id + "Não encontrado. A busca falhou!";
+		} catch (Exception ex) {
+			errorMessage = "Erro inesperado: "+ex.getMessage();
 		}
-		request.getRequestDispatcher("index.jsp").forward(request, response); //TODO: Definir para qual rota vamos madar
-
+		
+		request.setAttribute("erro", errorMessage);
+		request.getRequestDispatcher("/listar-noticia").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

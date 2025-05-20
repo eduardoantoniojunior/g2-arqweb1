@@ -1,4 +1,5 @@
-<%@include file="header.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ include file="header.jsp" %>
 
 <div class="container py-5">
     <h2 class="mb-4 text-center">Adicionar Nova Notícia</h2>
@@ -53,9 +54,9 @@
 
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-success me-2">Publicar</button>
-            <a href="listar-noticias" class="btn btn-secondary">Cancelar</a>
+            <a href="listar-noticia" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@ include file="footer.jsp" %>

@@ -1,41 +1,53 @@
 package br.edu.ifsp.g2.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-/**
- * Servlet implementation class DeleteNoticiaServlet
- */
+import br.edu.ifsp.g2.dao.NoticiaDAO;
+
 @WebServlet("/excluir-noticia")
 public class DeleteNoticiaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private static final long serialVersionUID = 1L;
+    private NoticiaDAO dao = NoticiaDAO.getInstance();
+
     public DeleteNoticiaServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String errorMessage = "";
+        String idParam = request.getParameter("id");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        try {
+            if (idParam == null || idParam.isEmpty()) {
+                throw new IllegalArgumentException("ID da notícia não fornecido.");
+            }
+            int id = Integer.parseInt(idParam);
+            dao.removeNoticia(id);
+            response.sendRedirect(request.getContextPath() + "/listar-noticia");
+            return;
+        }
+        catch (NumberFormatException ex) {
+            errorMessage = "ID inválido. Deve ser um número inteiro.";
+        }
+        catch (Exception ex) {
+            errorMessage = "Erro ao excluir notícia: " + ex.getMessage();
+        }
 
+        request.setAttribute("erro", errorMessage);
+        request.getRequestDispatcher("index.jsp")
+               .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
 }

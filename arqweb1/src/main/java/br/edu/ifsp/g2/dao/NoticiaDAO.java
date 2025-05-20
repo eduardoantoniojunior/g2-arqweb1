@@ -12,9 +12,34 @@ public class NoticiaDAO {
 	
 	private NoticiaDAO() {
 		this.noticias = new ArrayList<>();
+        // alguns mocks :)
+        noticias.add(new Noticia(
+            "Exploração Espacial Comercial decola no Brasil",
+            "Agência aeroespacial nacional anuncia novos contratos com startups de satélites privados.",
+            LocalDate.of(2025, 1, 15),
+            "Mariana Silva"
+        ));
+        noticias.add(new Noticia(
+            "Feira de Tecnologia em São Paulo reúne mais de 200 expositores",
+            "Evento traz inovações em IA, IoT e sustentabilidade até o fim do mês no Expo Center Norte.",
+            LocalDate.of(2025, 2, 10),
+            "Carlos Pereira"
+        ));
+        noticias.add(new Noticia(
+            "Startup local lança app de finanças pessoais com foco em investimentos",
+            "A FinTrack promete ajudar usuários a controlar gastos e projetar carteiras diversificadas.",
+            LocalDate.of(2025, 3, 5),
+            "Ana Costa"
+        ));
+        noticias.add(new Noticia(
+            "Novo recorde de público no campeonato nacional de e-sports",
+            "Final do torneio de jogos eletrônicos atraiu mais de 50 mil espectadores online.",
+            LocalDate.of(2025, 4, 22),
+            "Rafael Souza"
+        ));		
 	}
 	
-	public NoticiaDAO getInstance() {
+	public static NoticiaDAO getInstance() {
 		if (instance == null) {
 			instance = new NoticiaDAO();
 		}

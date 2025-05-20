@@ -1,41 +1,62 @@
 package br.edu.ifsp.g2.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-/**
- * Servlet implementation class CreateNoticiaServlet
- */
+import br.edu.ifsp.g2.dao.NoticiaDAO;
+import br.edu.ifsp.g2.model.Noticia;
+
 @WebServlet("/criar-noticia")
 public class CreateNoticiaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    private static final long serialVersionUID = 1L;
+    private NoticiaDAO dao = NoticiaDAO.getInstance();
+
     public CreateNoticiaServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            request.setCharacterEncoding("UTF-8");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+            String titulo     = request.getParameter("titulo");
+            String texto      = request.getParameter("texto");
+            String dataPubStr = request.getParameter("dataPublicacao");
+            String nomeAutor  = request.getParameter("nomeAutor");
 
+            if (titulo == null || titulo.isEmpty() ||
+                texto  == null || texto.isEmpty()  ||
+                dataPubStr == null || dataPubStr.isEmpty() ||
+                nomeAutor  == null || nomeAutor.isEmpty()) {
+                throw new RuntimeException("Todos os campos são obrigatórios.");
+            }
+
+            LocalDate dataPublicacao = LocalDate.parse(dataPubStr);
+
+            Noticia nova = new Noticia(titulo, texto, dataPublicacao, nomeAutor);
+            dao.addNoticia(nova);
+
+            response.sendRedirect(request.getContextPath() + "/listar-noticia");
+            return;
+        }
+        catch (DateTimeParseException ex) {
+            request.setAttribute("erro", "Data de publicação inválida.");
+        }
+        catch (RuntimeException ex) {
+            request.setAttribute("erro", ex.getMessage());
+        }
+        catch (Exception ex) {
+            request.setAttribute("erro", "Erro ao criar notícia: " + ex.getMessage());
+        }
+
+        request.getRequestDispatcher("createNoticia.jsp")
+               .forward(request, response);
+    }
 }

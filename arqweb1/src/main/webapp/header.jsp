@@ -1,6 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page isELIgnored="false"%>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,9 +16,13 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
 	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
 	crossorigin="anonymous">
-<title>Hello World!</title>
+<title>G2 Notícias</title>
 </head>
 <body>
-	<c:if test="${not empty erro}">
-		<div class="alert alert-dange" role="alert">${erro}</div>
+	<c:if test="${not empty sessionScope.erro}">
+		<div class="alert alert-danger" role="alert">${sessionScope.erro}</div>
+	</c:if>
+	<c:if
+		test="${(pageContext.request.requestURI != '/arqweb1/login.jsp' && pageContext.request.requestURI != '/arqweb1/addUsuario.jsp') && (sessionScope.usuarioLogado == null)}">
+		<c:redirect url="/login.jsp" />
 	</c:if>
