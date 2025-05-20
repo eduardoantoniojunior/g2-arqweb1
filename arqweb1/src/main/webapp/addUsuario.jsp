@@ -1,47 +1,28 @@
-<%@include file='header.jsp' %>
+<%@include file="header.jsp" %>
 
 <div class="container py-5">
-    <h2 class="mb-4">Adicionar Novo Livro</h2>
+    <h2 class="text-center mb-4">Cadastro de Novo UsuÃ¡rio</h2>
 
-    <form action="criar-livro" method="post" class="needs-validation" novalidate>
+    <form action="criar-usuario" method="post" class="mx-auto" style="max-width: 500px;">
         <div class="mb-3">
-            <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" required>
+            <label for="nome" class="form-label">Nome completo</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
         </div>
 
         <div class="mb-3">
-            <label for="autor" class="form-label">Autor</label>
-            <input type="text" class="form-control" id="autor" name="autor" required>
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Gênero</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="genero" value="Ficção" required>
-                <label class="form-check-label">Ficção</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="genero" value="Não Ficção">
-                <label class="form-check-label">Não Ficção</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="genero" value="Fantasia">
-                <label class="form-check-label">Fantasia</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="genero" value="Romance">
-                <label class="form-check-label">Romance</label>
-            </div>
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
         </div>
 
-        <div class="mb-3">
-            <label for="anoPublicacao" class="form-label">Ano de Publicação</label>
-            <input type="number" class="form-control" id="anoPublicacao" name="anoPublicacao" required>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Cadastrar</button>
         </div>
-
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="listar-livros" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 
-<%@include file='footer.jsp' %>
+<%@include file="footer.jsp" %>
