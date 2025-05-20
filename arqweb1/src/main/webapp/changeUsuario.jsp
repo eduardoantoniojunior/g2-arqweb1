@@ -1,41 +1,32 @@
-<%@include file='header.jsp' %>
+<%@include file="header.jsp" %>
 
 <div class="container py-5">
-    <h2 class="mb-4">Editar Livro - ${livro.id}</h2>
-    <form action="editar-livro" method="post" class="needs-validation" novalidate>
-        <input type="hidden" name="id" value="${livro.id}"/>
+    <h2 class="text-center mb-4">Editar Perfil</h2>
+
+    <form action="editar-usuario" method="post" class="mx-auto" style="max-width: 500px;">
+        <input type="hidden" name="id" value="${usuario.id}" />
 
         <div class="mb-3">
-            <label for="titulo" class="form-label">Título</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" value="${livro.titulo}" required>
+            <label for="nome" class="form-label">Nome completo</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="${usuario.nome}" required>
         </div>
 
         <div class="mb-3">
-            <label for="autor" class="form-label">Autor</label>
-            <input type="text" class="form-control" id="autor" name="autor" value="${livro.autor}" required>
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email" value="${usuario.email}" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Gênero</label>
-            <c:set var="generoAtual" value="${livro.genero}" />
-            <c:forEach var="g" items="${generos}">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="genero" value="${g}"
-                        <c:if test="${g eq generoAtual}">checked</c:if>>
-                    <label class="form-check-label">${g}</label>
-                </div>
-            </c:forEach>
+            <label for="senha" class="form-label">Nova Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha">
+            <div class="form-text">Deixe em branco para manter a senha atual.</div>
         </div>
 
-        <div class="mb-3">
-            <label for="anoPublicacao" class="form-label">Ano de Publicação</label>
-            <input type="number" class="form-control" id="anoPublicacao" name="anoPublicacao"
-                   value="${livro.anoPublicacao}" required>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Atualizar</button>
+            <a href="index.jsp" class="btn btn-secondary">Cancelar</a>
         </div>
-
-        <button type="submit" class="btn btn-primary">Atualizar</button>
-        <a href="listar-livros" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 
-<%@include file='footer.jsp' %>
+<%@include file="footer.jsp" %>
