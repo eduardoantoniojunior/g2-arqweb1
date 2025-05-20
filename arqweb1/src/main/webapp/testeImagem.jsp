@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Teste Enviar Imagem</h1>
-	<form action="UploadServlet" method="post" enctype="multipart/form-data">
+	<form action="criar-imagem" method="post" enctype="multipart/form-data">
         <input type="file" name="imagem" accept=".png" required>
         <button type="submit">Enviar</button>
     </form>

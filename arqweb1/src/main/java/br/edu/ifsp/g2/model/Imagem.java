@@ -10,5 +10,7 @@ public class Imagem {
 	private ImageIO imagem;
 	private int id;
 	
-	
+	public Imagem() {
+		
+	}
 }
