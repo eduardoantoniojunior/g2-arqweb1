@@ -23,3 +23,57 @@
 hs_err_pid*
 replay_pid*
 /.metadata/
+
+# Maven
+
+/target/
+
+
+
+# Eclipse
+
+.classpath
+
+.project
+
+.settings/
+
+bin/
+
+.externalToolBuilders/
+
+*.launch
+
+local.properties
+
+
+
+# Arquivos compilados
+
+*.class
+
+*.jar
+
+*.war
+
+*.ear
+
+
+
+# Arquivos temporários e backups
+
+*.tmp
+
+*.bak
+
+*.swp
+
+*~.nib
+
+
+
+# Sistema operacional
+
+.DS_Store
+
+Thumbs.db

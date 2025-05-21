@@ -14,7 +14,7 @@
 
             <div class="col-md-6 mb-3">
                 <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" id="autor" name="autor" required>
+                <input type="text" class="form-control" id="nomeAutor" name="nomeAutor" required>
             </div>
         </div>
 

@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import br.edu.ifsp.g2.dao.NoticiaDAO;
-import br.edu.ifsp.g2.model.Noticia;
 
 @WebServlet("/editar-noticia")
 public class UpdateNoticiaServlet extends HttpServlet {
@@ -20,31 +19,31 @@ public class UpdateNoticiaServlet extends HttpServlet {
         super();
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             request.setCharacterEncoding("UTF-8");
 
-            String idParam      = request.getParameter("id");
-            String titulo       = request.getParameter("titulo");
-            String texto        = request.getParameter("texto");
-            String dataPubStr   = request.getParameter("dataPublicacao");
-            String nomeAutor    = request.getParameter("nomeAutor");
+            String idParam = request.getParameter("id");
+            String titulo = request.getParameter("titulo");
+            String texto = request.getParameter("texto");
+            String resumo = request.getParameter("resumo");
+            String dataPubStr = request.getParameter("dataPublicacao");
+            String nomeAutor = request.getParameter("nomeAutor");
+            String categoria = request.getParameter("categoria");
 
-            if (idParam == null || idParam.isEmpty() ||
-                titulo == null || titulo.isEmpty() ||
-                texto  == null || texto.isEmpty()  ||
-                dataPubStr == null || dataPubStr.isEmpty() ||
-                nomeAutor  == null || nomeAutor.isEmpty()) {
+            if (idParam == null || titulo == null || texto == null || resumo == null
+             || dataPubStr == null || nomeAutor == null || categoria == null
+             || idParam.isEmpty() || titulo.isEmpty() || texto.isEmpty() || resumo.isEmpty()
+             || dataPubStr.isEmpty() || nomeAutor.isEmpty() || categoria.isEmpty()) {
                 throw new RuntimeException("Todos os campos são obrigatórios.");
             }
 
             int id = Integer.parseInt(idParam);
             LocalDate dataPublicacao = LocalDate.parse(dataPubStr);
 
-            dao.updateNoticia(id, titulo, texto, dataPublicacao, nomeAutor);
+            dao.updateNoticia(id, titulo, texto, resumo, dataPublicacao, nomeAutor, categoria);
 
             response.sendRedirect(request.getContextPath() + "/listar-noticia");
             return;

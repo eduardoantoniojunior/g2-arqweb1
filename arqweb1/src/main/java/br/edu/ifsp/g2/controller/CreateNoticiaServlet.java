@@ -26,21 +26,32 @@ public class CreateNoticiaServlet extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
 
-            String titulo     = request.getParameter("titulo");
-            String texto      = request.getParameter("texto");
+            String titulo = request.getParameter("titulo");
+            String texto = request.getParameter("texto");
+            String resumo = request.getParameter("resumo");
             String dataPubStr = request.getParameter("dataPublicacao");
-            String nomeAutor  = request.getParameter("nomeAutor");
+            String nomeAutor = request.getParameter("nomeAutor");
+            String categoria = request.getParameter("categoria");
 
-            if (titulo == null || titulo.isEmpty() ||
-                texto  == null || texto.isEmpty()  ||
-                dataPubStr == null || dataPubStr.isEmpty() ||
-                nomeAutor  == null || nomeAutor.isEmpty()) {
+            if (titulo == null || titulo.isEmpty()
+             || texto  == null || texto.isEmpty()
+             || resumo == null || resumo.isEmpty()
+             || dataPubStr == null || dataPubStr.isEmpty()
+             || nomeAutor  == null || nomeAutor.isEmpty()
+             || categoria  == null || categoria.isEmpty()) {
                 throw new RuntimeException("Todos os campos são obrigatórios.");
             }
 
             LocalDate dataPublicacao = LocalDate.parse(dataPubStr);
 
-            Noticia nova = new Noticia(titulo, texto, dataPublicacao, nomeAutor);
+            Noticia nova = new Noticia(
+                titulo,
+                texto,
+                resumo,
+                dataPublicacao,
+                nomeAutor,
+                categoria
+            );
             dao.addNoticia(nova);
 
             response.sendRedirect(request.getContextPath() + "/listar-noticia");
@@ -56,7 +67,7 @@ public class CreateNoticiaServlet extends HttpServlet {
             request.setAttribute("erro", "Erro ao criar notícia: " + ex.getMessage());
         }
 
-        request.getRequestDispatcher("createNoticia.jsp")
+        request.getRequestDispatcher("addNoticia.jsp")
                .forward(request, response);
     }
 }

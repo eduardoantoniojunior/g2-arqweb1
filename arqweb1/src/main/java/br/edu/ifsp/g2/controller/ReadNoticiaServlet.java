@@ -30,6 +30,7 @@ public class ReadNoticiaServlet extends HttpServlet {
             if (idParam != null) {
                 int id = Integer.parseInt(idParam);
                 Noticia selecionada = dao.getNoticia(id);
+                selecionada.addVisualizacao();
                 session.setAttribute("noticiaSelecionada", selecionada);
                 request.getRequestDispatcher("viewNoticia.jsp")
                        .forward(request, response);
